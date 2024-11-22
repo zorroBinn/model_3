@@ -11,17 +11,13 @@ using namespace std;
 /// <param name="basis">Вектор индексов базисных переменных</param>
 void printSimplexTable(vector<vector<double>>& table, vector<int>& basis) {
     cout << "Базис\t";
-    for (short j = 0; j < table[0].size() - 1; ++j)
-        cout << "x" << j + 1 << "\t";
+    for (short j = 0; j < table[0].size() - 1; ++j) cout << "x" << j + 1 << "\t";
     cout << "Свободный член" << endl;
 
     for (short i = 0; i < table.size(); ++i) {
-        if (i < basis.size())
-            cout << "x" << basis[i] + 1 << "\t";
-        else
-            cout << "F\t";
-        for (short j = 0; j < table[i].size(); ++j)
-            cout << table[i][j] << "\t";
+        if (i < basis.size()) cout << "x" << basis[i] + 1 << "\t";
+        else cout << "F\t";
+        for (short j = 0; j < table[i].size(); ++j) cout << table[i][j] << "\t";
         cout << endl;
     }
     cout << endl;
@@ -80,8 +76,7 @@ void simplexTableTransform(vector<vector<double>>& table, vector<int>& basis, in
     for (short i = 0; i < table.size(); ++i) {
         if (i != permElemRow) {
             double factor = table[i][permElemCol];
-            for (short j = 0; j < table[i].size(); ++j)
-                table[i][j] -= factor * table[permElemRow][j];
+            for (short j = 0; j < table[i].size(); ++j) table[i][j] -= factor * table[permElemRow][j];
         }
     }
 
@@ -95,8 +90,7 @@ void simplexTableTransform(vector<vector<double>>& table, vector<int>& basis, in
 /// <param name="basis">Вектор индексов базисных переменных</param>
 void printCurrentSolution(vector<vector<double>>& table, vector<int>& basis) {
     vector<double> solution(table[0].size() - 1, 0.0);
-    for (short i = 0; i < basis.size(); ++i)
-        solution[basis[i]] = table[i].back();
+    for (short i = 0; i < basis.size(); ++i) solution[basis[i]] = table[i].back();
 
     cout << "Текущее базисное решение: X = {";
     for (short i = 0; i < solution.size(); ++i) {
